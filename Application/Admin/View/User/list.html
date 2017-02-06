@@ -1,0 +1,62 @@
+<div class="panel">
+    <div class="panel-heading">
+        <strong><i class="icon-th-large"></i> 用户列表</strong>
+        <div class="panel-actions">
+            <a href="__CONTROLLER__/index/action/edit" class="btn btn-primary"><i class="icon-plus"></i> 新增</a>
+        </div>
+    </div>
+    <table class="table table-hover table-striped tablesorter table-fixed">
+        <thead>
+            <tr>
+                <th class="text-center" width="60"><div class="header">ID</div></th>
+                <th><div class="header">用户名称</div></th>
+                <th class="text-center" width="60">用户类型</th>
+                <th class="text-center" width="260">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <foreach name="list" item="vo" key="k">
+                <tr>
+                    <td class="text-center">{$vo.id}</td>
+                    <td title="{$vo.title}">{$vo.username}</td>
+                    <td class="text-center">
+                        <if condition="$vo['type'] eq 'admin'">
+                        管理员
+                        <elseif condition="$vo['type'] eq 'common'" />
+                        普通用户
+                        </if>
+                    </td>
+                    <td class="text-center nofixed editTd">
+                        <a href="__CONTROLLER__/index/id/{$vo.id}/action/edit" title="编辑"><i class="icon icon-edit"></i></a>
+                        <if condition="$vo['username'] neq 'admin'">
+                        <a href="#" data-id='{$vo.id}' class="tdDel" title="删除"><i class="icon icon-times"></i></a>
+                        </if>
+                    </td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+</div>
+<script>
+//删除类目
+$(function(){
+    $('.tdDel').click(function(){
+        var id = $(this).data('id');
+        $.ajax({
+            url : '__CONTROLLER__/del',
+            type : 'POST',
+            data : {id:id},
+            dataType : 'json',
+            success : function(data){
+                if(data.status){
+                    alert('删除成功');
+                    location.href = '__CONTROLLER__/index/cid/{$cid}';
+                }else{
+                    alert('删除失败');
+                }
+            }
+        })
+        return false;
+    })
+})
+</script>

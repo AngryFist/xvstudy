@@ -1,0 +1,77 @@
+.loginBody {
+    background: url(../images/bg14.jpg) center center no-repeat;
+}
+.loginBox {
+    width: 320px;
+    margin: 0 auto;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    padding: 20px 40px;
+    background: #fff;
+    position: relative;
+    top: 20%;
+}
+.drag-shadow {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 4px 0;
+    box-shadow: 0 0 2px #666;
+}
+.panel-actions {
+    float: right;
+    margin-top: -6px;
+    margin-right: -12px;
+}
+.panel-actions form{
+    width: 300px;
+    float: left;
+}
+.panel-actions .btn {
+    margin-left: 10px;
+}
+.table-form>tbody>tr>td,.table-form>tbody>tr>th {
+    vertical-align: middle;
+    border-bottom: none;
+    padding: 6px;
+}
+.table-form>tbody>tr>th {
+    text-align: right;
+}
+.table>tbody+tbody {
+    border-top: none;
+}
+.navbar-inverse {
+    background: url(../images/h-bg.png) repeat-x;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 0;
+}
+.pager>div {
+    float: right;
+}
+.pager span,.pager a {
+    display: block;
+    float: left;
+    margin-left: 5px;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+.pager .current, .pager a:hover {
+    background: #2a74ea;
+    color: #fff;
+    border: 1px solid #2a74ea;
+}
+.pager a.prev,.pager a.next {
+    width: 60px;
+}
+.w-60px {
+    width: 60px;
+}
+.editTd a {
+    margin:0 5px;
+}
+.tdDel i {
+    color: #EA644A;
+}

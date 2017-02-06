@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="__PUBLIC__/zui/css/zui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+    <script src="__PUBLIC__/js/vendors/jquery.min.js"></script>
+    <script src="__PUBLIC__/zui/js/zui.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fixed">
+      <!-- 导航头部 -->
+      <div class="navbar-header">
+        <!-- 品牌名称或logo -->
+        <a class="navbar-brand" href="#this">XVStudy CMS</a>
+      </div>
+      <!-- 导航项目 -->
+      <div class="navbar-collapse collapse">
+        <!-- 一般导航项目 -->
+        <ul class="nav navbar-nav">
+          <!-- <li <if condition="CONTROLLER_NAME eq 'Category'">class="active"</if>><a href="/Admin/Category/index">分类</a></li> -->
+          <li <if condition="CONTROLLER_NAME eq 'Teacher'">class="active"</if>><a href="/Admin/Teacher/index"><i class="icon icon-group"></i> 教师</a></li>
+          <li <if condition="CONTROLLER_NAME eq 'Subject'">class="active"</if>><a href="/Admin/Subject/index"><i class="icon icon-book"></i> 学科</a></li>
+          <li <if condition="(CONTROLLER_NAME eq 'Article') AND ($cid eq 65)">class="active"</if>><a href="/Admin/Article/index/cid/65"><i class="icon icon-expand"></i> 点播课程</a></li>
+          <li <if condition="(CONTROLLER_NAME eq 'Article') AND ($cid eq 66)">class="active"</if>><a href="/Admin/Article/index/cid/66"><i class="icon icon-play"></i> 直播课程</a></li>
+          <li <if condition="CONTROLLER_NAME eq 'User'">class="active"</if>><a href="/Admin/User/index"><i class="icon icon-user"></i> 用户</a></li>
+        </ul>
+        <!-- 右侧的导航项目 -->
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/Admin/Index"><i class="icon icon-signout"></i> 退出</a></li>
+      </ul>
+      </div><!-- END .navbar-collapse -->
+    </div>
+  </nav>

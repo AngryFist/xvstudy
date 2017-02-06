@@ -1,0 +1,285 @@
+<link rel="stylesheet" href="__PUBLIC__/zui/lib/datetimepicker/datetimepicker.min.css">
+<script src="__PUBLIC__/zui/lib/datetimepicker/datetimepicker.min.js"></script>
+<input type="hidden" id="subjectID" name="subjectID" value="{$info.subject}">
+<input type="hidden" id="teacherID" name="teacherID" value="{$info.teacher}">
+
+    <div class="panel">
+        <div class="panel-heading"><strong><i class="icon-plus"></i> 发布课程</strong></div>
+        <div class="panel-body">
+            <form method="post" role="form" id="ajaxForm">
+                <table class="table table-form">
+                    <!-- <tbody>
+                        <tr>
+                            <th class="w-100px">类目</th>
+                            <td>
+                                <select name="category" id="category" class="chosen form-control">
+                                        {$selectHtml}
+                                    </select>
+                            </td>
+                        </tr>
+                    </tbody> -->
+                    <tbody class="articleInfo">
+                        <tr>
+                            <th class="w-100px">标题</th>
+                            <td>
+                                <input type="text" name="title" id="title" value="{$info.title}" class="form-control">
+                            </td>
+                        </tr>
+                        <if condition="$cid eq 66">
+                        <tr>
+                            <th class="w-100px">备注</th>
+                            <td>
+                                <input type="text" name="alias" id="alias" value="{$info.alias}" class="form-control" readonly>
+                            </td>
+                        </tr>
+                        </if>
+                        <tr>
+                            <th>学科</th>
+                            <td>
+                                <select name="subject" id="subject" class="chosen form-control">
+                                    {$subjectSelectHtml}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>主讲教师</th>
+                            <td>
+                                <select name="teacher" id="teacher" class="chosen form-control">
+                                    {$teacherSelectHtml}
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class="articleInfo">
+                        <!-- <tr>
+                            <th>关键字</th>
+                            <td><input type="text" name="keywords" id="keywords" value="{$info.keywords}" class="form-control" placeholder="多个关键字中间用逗号隔开">
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <th>简介</th>
+                            <td><textarea name="summary" id="summary" rows="5" class="form-control">{$info.summary}</textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="articleInfo">
+                        <if condition="$cid eq 65">
+                        <tr>
+                            <th>缩略图</th>
+                            <td>
+                                <div class="input-group">
+                                <input type="text" name="thumbnail" id="thumbnail" value="{$info.thumbnail}" class="form-control" placeholder="支持格式jpg,gif,png">
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">点击上传</button>
+                            </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>课程视频</th>
+                            <td>
+                                <div class="input-group">
+                                <input type="text" name="video" id="video" value="{$info.video}" class="form-control" placeholder="支持格式flv,mp4">
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModalVideo">点击上传</button>
+                            </span>
+                            </div>
+                            </td>
+                        </tr>
+                        <elseif condition="$cid eq 66" />
+                            <tr>
+                                <th class="w-100px">直播IP</th>
+                                <td>
+                                    <input type="text" name="live_ip" id="live_ip" value="" class="form-control" placeholder="192.168.0.100">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="w-100px">直播端口</th>
+                                <td>
+                                    <input type="text" name="live_port" id="live_port" value="" class="form-control" placeholder="1924">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="w-100px">直播名称</th>
+                                <td>
+                                    <input type="text" name="live_name" id="live_name" value="" class="form-control" placeholder="livegkr/test">
+                                    <input type="hidden" name="video" id="video" value="{$info.video}" class="form-control" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="w-100px">直播时间</th>
+                                <td>
+                                    <div style="width:240px;">
+                                        <div class="input-group date form-datetime" data-datetime="" data-datetime-format="yyyy-MM-dd hh:ii:00" datetime-link-field="dtp_input3" datetime-link-format="yyyy-MM-dd hh:ii:00">
+                                            <input class="form-control" name="added_date" id="added_date" size="16" type="text" value="{$info.added_date}" readonly="">
+                                            <span class="input-group-addon"><span class="icon-remove"></span></span>
+                                            <span class="input-group-addon"><span class="icon-time"></span></span>
+                                          </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </if>
+                        <!-- <tr>
+                            <th>课程附件(课件/讲义等)</th>
+                            <td>
+                                <div class="input-group">
+                                <input type="text" name="video" id="video" value="" class="form-control" placeholder="支持格式doc,docx,xls,ppt,pptx,pdf">
+                                <span class="input-group-btn">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModalVideo">点击上传</button>
+                            </span>
+                            </div>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="2"><hr></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" id="articleSubmit" class="btn btn-primary" value="保存" data-loading-text="请稍候...">
+                                <a class="btn" href="__CONTROLLER__">返回</a>
+                                <input type="hidden" id="id" name="id" value="{$id}">
+                                <input type="hidden" id="cid" name="cid" value="{$cid}">
+                                <input type="hidden" id="act" name="act" value="<if condition="$id">edit<else />add</if>">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    </div>
+    <!-- 上传缩略图对话框 -->
+    <div class="modal fade" id="uploadModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">课程缩略图</h4>
+             </div>
+             <div class="modal-body">
+                <form id="fileUpform" action="/Admin/Article/uploadImg" enctype="multipart/form-data" method="post" >
+                    <input type="file" name="thumb" class="form-control" value="">
+                </form>
+             </div>
+             <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary submitUpload" data-loading-text="请稍候...">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 上传视频对话框 -->
+    <div class="modal fade" id="uploadModalVideo">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">课程视频</h4>
+             </div>
+             <div class="modal-body">
+                <form id="fileUpform2" action="/Admin/Article/uploadVideo" enctype="multipart/form-data" method="post" >
+                    <input type="file" name="video" class="form-control" value="">
+                </form>
+             </div>
+             <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary submitUploadVideo" data-loading-text="请稍候...">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+    $(function(){
+        $(".form-datetime").datetimepicker(
+        {
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: "yyyy-mm-dd hh:ii:00"
+        });
+
+
+        var categoryID = $('#categoryID').val();
+        var subjectID = $('#subjectID').val();
+        var teacherID = $('#teacherID').val();
+        if(subjectID){
+            $('#subject').val(subjectID);
+        }
+        if(teacherID){
+            $('#teacher').val(teacherID);
+        }
+
+        if($('#cid').val() == 66 && $('#video').val()){
+            var videoPath = $('#video').val().replace('http://', '');
+            var videoPathArr = videoPath.split('/');
+            $('#live_ip').val(videoPathArr.shift());
+            $('#live_port').val(videoPathArr.shift());
+            $('#live_name').val(videoPathArr.join('/'));
+
+        }
+
+        $('#articleSubmit').click(function(){
+            var myForm = $('#ajaxForm');
+            var me = $(this);
+            me.button('loading');
+            if($('#cid').val() == 66){
+                $('#video').val('http://' + $('#live_ip').val() + '/' + $('#live_port').val() + '/' + $('#live_name').val())
+            }
+            $.ajax({
+                url : '__CONTROLLER__/editArticle',
+                type : 'POST',
+                dataType : 'json',
+                data : myForm.serializeArray(),
+                success : function(data){
+                    if(!data.status){
+                        var info = data.info || '更新失败';
+                        alert(info);
+                        me.button('reset');
+                    }else{
+                        alert('更新成功');
+                        location.href = '/Admin/Article/index/cid/{$cid}';
+                    }
+                }
+            })
+            return false;
+        })
+        $('.submitUpload').click(function(){
+            uploadAjax($(this), 'uploadImg', $('#uploadModal'), $('#thumbnail'))
+            return false;
+        })
+        $('.submitUploadVideo').click(function(){
+            uploadAjax($(this), 'uploadVideo', $('#uploadModalVideo'), $('#video'))
+            return false;
+        })
+    })
+    function uploadAjax(_this, _url, modalEle, inputEle){
+        var formData = new FormData(modalEle.find('form')[0]);
+        _this.button('loading');
+        $.ajax({
+            url : '__CONTROLLER__/' + _url,
+            type : 'POST',
+            data : formData,
+            dataType: 'json',
+            processData : false,
+            contentType : false,
+            success : function(data){
+                if(data.status == 0){
+                    alert(data.info);
+                }else{
+                    alert('上传成功');
+                    modalEle.modal('hide')
+                    inputEle.val(data.rootPath.substr(1) + data.savepath + data.savename);
+                }
+                _this.button('reset');
+            }
+        })
+    }
+    </script>

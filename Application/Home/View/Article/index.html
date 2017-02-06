@@ -1,0 +1,151 @@
+<include file="Public/Include/Home/header.html" />
+
+    <div class="content">
+        <div class="block">
+            <div class="header_lead">
+                <h1>{$info.title}</h1>
+                <div class="subtitle">
+                    <span>学科: </span><a href="#">{$subject.name}</a> |
+                    <span>讲师: </span><a href="#">{$teacher.name}</a> |
+                    <span>发布时间: </span><a href="#">{$info.added_date}</a>
+                </div>
+            </div>
+        </div>
+        <div class="block cf">
+            <div class="video_player" id="xvsplayer"></div>
+            <div class="comment_box">
+                <div class="msgList scrollbar-hover">
+                    <ul>
+                        <!-- <volist name="msgList" id="vo"  >
+                            <li class="cf">
+                                <div class="">{$vo.text}</div>
+                            </li>
+                        </volist> -->
+                    </ul>
+                    <div class="msg_end" style="height:0px; overflow:hidden"></div>
+                </div>
+                <div class="msgForm">
+                    <textarea name="msg" id="msg"></textarea>
+                    <a href="#" class="sendMsg">发送</a>
+                </div>
+            </div>
+        </div>
+        <div class="articleCon cf">
+            <div class="left">
+                <div class="block">
+
+                    <div class="tab cf">
+                        <ul>
+                            <li>课程内容</li>
+                            <li>授课讲师</li>
+                            <!-- <li>讲义下载</li> -->
+                            <!-- <li>热门评论</li> -->
+                        </ul>
+                    </div>
+                    <div class="tit cf"><span class="strip"></span><span>课程介绍</span></div>
+                    <div class="inntext">
+                        {$info.summary}
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="tit cf"><span class="strip"></span><span>授课讲师</span></div>
+                    <div class="inntext teacherInfo cf">
+                        <div class="image">
+                            <img src="{$teacher.thumbnail}" alt="">
+                        </div>
+                        <div class="detail">
+                            <h3>{$teacher.name} <span>{$teacher.alias}</span></h3>
+                            <div class="text">{$teacher.desc}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="block">
+                    <!-- <div class="tit cf"><span class="strip"></span><span>讨论区</span></div>
+                    <div class="inntext cf">
+                        <div class="commentBox">
+                            <ul>
+                                <volist name="msgList" id="vo"  >
+                                    <li>{$vo.text}</li>
+                                </volist>
+                            </ul>
+                        </div>
+                        <div class="commentForm">
+                            <textarea name="msg" id="msg"></textarea>
+                            <a href="#" class="sendMsg">发送</a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="aid" id="aid" value="{$info.id}">
+    <input type="hidden" name="userid" id="userid" value="16">
+    <input type="hidden" name="replyid" id="replyid" value="0">
+    <script src="__PUBLIC__/ck6.6/ckplayer.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.sendMsg').click(function(){
+                var me = $(this);
+                if(me.hasClass('disable')) return;
+                me.addClass('disable');
+                var postData = {
+                    aid : $('#aid').val(),
+                    userid : $('#userid').val(),
+                    replyid : $('#replyid').val(),
+                    text : $('#msg').val()
+                }
+                $.ajax({
+                    url : '__CONTROLLER__/sendMsg',
+                    type : 'POST',
+                    data : postData,
+                    dataType : 'json',
+                    success : function(data){
+                        if(data.status){
+                            getMsgList();
+                            $('#msg').val('');
+                        }else{
+                            alert(data.info);
+                        }
+                        me.removeClass('disable');
+                    }
+                })
+                return false;
+            })
+
+            getMsgList();
+
+        })
+
+        function getMsgList(){
+            $.ajax({
+                url : '__CONTROLLER__/msgList',
+                data : {aid:$('#aid').val()},
+                dataType : 'json',
+                success : function(data){
+                    var list = '';
+                    for(var i = 0; i < data.length; i++){
+                        var item = data[i];
+                        list += '<li class="cf '+(item.userid == $('#userid').val() ? 'my' : '')+'"><div class="">'+ item.text + '</div></li>';
+                    }
+                    $('.msgList ul').html(list);
+                    $('.msg_end')[0].scrollIntoView(true);
+                }
+            })
+        }
+
+        var flashvars = {
+            f: '{$info.video}',
+            c: 0,
+            b: 1
+        };
+        var params = {
+            bgcolor: '#FFF',
+            allowFullScreen: true,
+            allowScriptAccess: 'always',
+            wmode: 'transparent'
+        };
+        CKobject.embedSWF('__PUBLIC__/ck6.6/ckplayer.swf', 'xvsplayer', 'ckplayer', 640, 360, flashvars, params);
+    </script>
+<include file="Public/Include/Home/footer.html" />

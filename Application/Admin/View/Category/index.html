@@ -1,0 +1,44 @@
+
+    <include file="Public/Include/Admin/header.html" />
+    <div class="container-fixed">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel">
+                    <div class="panel-heading"><strong><i class="icon-sitemap"></i> 类目</strong></div>
+                    <div class="panel-body">
+                        <div id="treeMenuBox">
+                            {$treeHtml}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9" id="categoryBox">
+                <include file="$action" />
+            </div>
+        </div>
+
+    </div>
+<script>
+    //删除类目
+    $(function(){
+        $('.catDel').click(function(){
+            var id = $(this).data('id');
+            $.ajax({
+                url : '__CONTROLLER__/del',
+                type : 'POST',
+                data : {id:id},
+                dataType : 'json',
+                success : function(data){
+                    if(data.status){
+                        alert('删除成功');
+                        location.href = '__CONTROLLER__/index';
+                    }else{
+                        alert('删除失败');
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>
+<include file="Public/Include/Admin/footer.html" />

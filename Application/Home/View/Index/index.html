@@ -1,0 +1,49 @@
+<include file="Public/Include/Home/header.html" />
+<div class="navigator">
+    <div class="content">
+        <ul>
+            <li><b>学科:</b>
+                <dl>
+                    <dd><a <if condition="!$subjectID">class="on"</if> href="/Index/index/<?php if($teacherID){echo 'teacher/'.$teacherID;} ?>">全部</a></dd>
+                    <volist name="subjects" id="vo">
+                        <dd><a <if condition="$subjectID eq $vo['id']">class="on"</if> href="/Index/index<if condition="$teacherID">/teacher/{$teacherID}</if>/subject/{$vo.id}">{$vo.name}</a></dd>
+                    </volist>
+                </dl>
+            </li>
+            <li><b>教师:</b>
+                <dl>
+                    <dd><a <if condition="!$teacherID">class="on"</if> href="/Index/index/<?php if($subjectID){echo 'subject/'.$subjectID;} ?>">全部</a></dd>
+                    <volist name="teachers" id="vo"  >
+                        <dd><a <if condition="$teacherID eq $vo['id']">class="on"</if> href="/Index/index/teacher/{$vo.id}<if condition="$subjectID">/subject/{$subjectID}</if>">{$vo.name}</a></dd>
+                    </volist>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="content index_artlist">
+    <ul class="cf">
+        <volist name="articles" id="vo"  >
+            <li>
+
+                    <div class="image">
+                        <a href="/Article/index/id/{$vo.id}"><img src="{$vo.thumbnail}" alt=""></a>
+                    </div>
+                    <div class="detail">
+                        <h3><a href="/Article/index/id/{$vo.id}">{$vo.title}</a></h3>
+                        <div class="subtitle_a">
+                            <span>学科: </span><a href="#">{$vo.subject_name}</a> |
+                            <span>讲师: </span><a href="#">{$vo.teacher_name}</a>
+                            <div>发布时间: {$vo.added_date}</div>
+                            <div>{$vo.views}人看过该课程</div>
+                        </div>
+                    </div>
+
+            </li>
+        </volist>
+    </ul>
+    <div class="pager cf">
+        {$page}
+    </div>
+</div>
+<include file="Public/Include/Home/footer.html" />
